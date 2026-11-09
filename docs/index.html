@@ -590,6 +590,7 @@
         <label for="message">How can we help you?</label>
         <textarea id="message" name="message" placeholder="Tell us about your project..."></textarea>
       </div>
+      <div class="h-captcha" data-captcha="true" style="margin:4px 0"></div>
       <button type="submit" class="btn">Send Message</button>
       <p class="form-note" id="formNote"></p>
     </form>
@@ -654,6 +655,12 @@
       note.className = 'form-note';
       return;
     }
+    const captcha = form.querySelector('textarea[name="h-captcha-response"]');
+    if (!captcha || !captcha.value) {
+      note.textContent = 'Please complete the "I am human" check before submitting.';
+      note.className = 'form-note';
+      return;
+    }
     note.textContent = 'Sending...';
     note.className = 'form-note';
     submitBtn.disabled = true;
@@ -668,6 +675,7 @@
         note.textContent = 'Message sent — we\'ll be in touch within one business day.';
         note.className = 'form-note ok';
         form.reset();
+        try { if (window.hcaptcha) hcaptcha.reset(); } catch (e) {}
       } else {
         note.textContent = (data && data.message) ? data.message : 'Something went wrong. Please email us directly.';
         note.className = 'form-note';
@@ -680,6 +688,8 @@
     }
   });
 </script>
+
+<script src="https://web3forms.com/client/script.js" async defer></script>
 
 </body>
 </html>
