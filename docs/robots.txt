@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://victor377.github.io/GEM-Technologies/sitemap.xml
